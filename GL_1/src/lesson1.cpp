@@ -48,27 +48,38 @@ int main()
 
 	//TRIANGLE STUFF
 	GLfloat vertices[] = {
-		 0.0f,   0.5f,  0.0f, 1.0f, 0.0f, 0.0f,
-		 0.5f,  -0.5f,  0.0f, 0.0f, 1.0f, 0.0f,
-		-0.5f,  -0.5f,  0.0f, 0.0f, 0.0f, 1.0f
+		 0.0f,   0.5f,  0.0f, 
+		 0.5f,  -0.5f,  0.0f, 
+		-0.5f,  -0.5f,  0.0f
 	};
 
+	GLfloat vert_color[] = {
+		1.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, 0.0f,
+		0.0f, 0.0f, 1.0f
+	};
+	
+	GLuint vbo, vbo2, vao;
 
-
-	GLuint vbo, vao;
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); 
+
+	glGenBuffers(1, &vbo2);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo2);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vert_color, GL_STATIC_DRAW);
 
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 
 	//pos
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 6, NULL);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 	glEnableVertexAttribArray(0);
 
 	//color
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 6, (GLvoid*)(sizeof(GLfloat)*3));
+	glBindBuffer(GL_ARRAY_BUFFER, vbo2);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 	glEnableVertexAttribArray(1);
 
 	GLuint vs = glCreateShader(GL_VERTEX_SHADER);
