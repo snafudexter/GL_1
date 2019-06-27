@@ -1,3 +1,21 @@
 ﻿D:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(377,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
-  lesson1.cpp
+  main.cpp
+  ShaderProgram.cpp
+  Generating Code...
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
+ShaderProgram.obj : warning LNK4049: locally defined symbol ___glewAttachShader imported
+ShaderProgram.obj : warning LNK4049: locally defined symbol ___glewCompileShader imported
+ShaderProgram.obj : warning LNK4049: locally defined symbol ___glewCreateProgram imported
+ShaderProgram.obj : warning LNK4049: locally defined symbol ___glewCreateShader imported
+ShaderProgram.obj : warning LNK4049: locally defined symbol ___glewDeleteProgram imported
+ShaderProgram.obj : warning LNK4049: locally defined symbol ___glewDeleteShader imported
+ShaderProgram.obj : warning LNK4049: locally defined symbol ___glewGetProgramInfoLog imported
+ShaderProgram.obj : warning LNK4049: locally defined symbol ___glewGetProgramiv imported
+ShaderProgram.obj : warning LNK4049: locally defined symbol ___glewGetShaderInfoLog imported
+ShaderProgram.obj : warning LNK4049: locally defined symbol ___glewGetShaderiv imported
+ShaderProgram.obj : warning LNK4049: locally defined symbol ___glewLinkProgram imported
+ShaderProgram.obj : warning LNK4049: locally defined symbol ___glewShaderSource imported
+ShaderProgram.obj : warning LNK4049: locally defined symbol ___glewUseProgram imported
+glew32s.lib(glew.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'glew32s.lib(glew.obj)' or at 'C:\Users\hooptech\source\repos\GL_1\GL_1\bin\vc120.pdb'; linking object as if no debug info
   GL_1.vcxproj -> C:\Users\hooptech\source\repos\GL_1\GL_1\.\bin\GL_1.exe
