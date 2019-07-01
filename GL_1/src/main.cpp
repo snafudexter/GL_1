@@ -72,6 +72,13 @@ int main()
 
 		shaderProgram.use();
 
+		GLfloat time = glfwGetTime();
+		GLfloat blueColor = (sin(time) / 2) + 0.5f;
+		GLfloat greenColor = (sin(-time) / 2) + 0.5f;
+		GLfloat redColor = (sin(time) / 2) + 0.5f;
+
+		shaderProgram.setUniform("vertColor", glm::vec4(redColor, greenColor, blueColor, 1.0f));
+
 		glBindVertexArray(vao);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
