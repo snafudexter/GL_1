@@ -7,7 +7,7 @@ Texture2D::Texture2D():mTexture(0) {
 
 }
 Texture2D::~Texture2D() {
-
+	glDeleteTextures(1, &mTexture);
 }
 
 bool Texture2D::loadTexture(const string& filename, bool generateMipMaps) {
