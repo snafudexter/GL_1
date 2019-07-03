@@ -26,6 +26,8 @@ public:
 	void setUniform(const GLchar* name, const glm::vec3 & v);
 	void setUniform(const GLchar* name, const glm::vec4 & v);
 
+	GLuint getProgram();
+
 private:
 	string fileToString(const string& filename);
 	void checkCompileErrors(GLuint shader, ShaderType type);

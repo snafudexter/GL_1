@@ -4,6 +4,7 @@
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 #include "ShaderProgram.h"
+#include "Texture2D.h"
 
 const char* APP_TITLE = "First Triangle";
 const int gWindowWidth = 800;
@@ -11,7 +12,6 @@ const int gWindowHeight = 600;
 
 
 GLFWwindow* gWindow = NULL;
-
 bool gWireFrame = false;
 
 
@@ -30,10 +30,10 @@ int main()
 
 	//TRIANGLE STUFF
 	GLfloat vertices[] = {
-		-0.5f,   0.5f,  0.0f, 
-		 0.5f,   0.5f,  0.0f, 
-		 0.5f,  -0.5f,  0.0f,
-		-0.5f,	-0.5f,	0.0f
+		-0.5f,   0.5f,  0.0f, 0.0f, 1.0f,
+		 0.5f,   0.5f,  0.0f, 1.0f, 1.0f,
+		 0.5f,  -0.5f,  0.0f, 1.0f, 0.0f,
+		-0.5f,	-0.5f,	0.0f, 0.0f, 0.0f
 	};
 
 	GLuint indices[] = {
@@ -52,16 +52,23 @@ int main()
 
 	//pos
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), NULL);
 	glEnableVertexAttribArray(0);
 
-	ShaderProgram shaderProgram;
-	shaderProgram.loadShaders("basic.vert", "basic.frag");
+	//tex coord
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(1);
 
 	glGenBuffers(1, &ibo);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
+	ShaderProgram shaderProgram;
+	shaderProgram.loadShaders("basic.vert", "basic.frag");
+
+	Texture2D texture, texture2;
+	texture.loadTexture("Wall_Stone_010_basecolor.jpg", true);
+	texture2.loadTexture("Material_998.jpg", true);
 	//main loop
 	while (!glfwWindowShouldClose(gWindow)) {
 
@@ -70,15 +77,13 @@ int main()
 
 		glClear(GL_COLOR_BUFFER_BIT);
 
+		texture.bind(0);
+		texture2.bind(1);
+
+		glUniform1i(glGetUniformLocation(shaderProgram.getProgram(), "diffuse"), 0);
+		glUniform1i(glGetUniformLocation(shaderProgram.getProgram(), "normal"), 1);
 		shaderProgram.use();
-
-		GLfloat time = glfwGetTime();
-		GLfloat blueColor = (sin(time) / 2) + 0.5f;
-		GLfloat greenColor = (sin(-time) / 2) + 0.5f;
-		GLfloat redColor = (sin(time) / 2) + 0.5f;
-
-		shaderProgram.setUniform("vertColor", glm::vec4(redColor, greenColor, blueColor, 1.0f));
-
+		
 		glBindVertexArray(vao);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
