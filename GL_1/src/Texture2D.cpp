@@ -26,11 +26,6 @@ Texture2D::~Texture2D()
 	glDeleteTextures(1, &mTexture);
 }
 
-//-----------------------------------------------------------------------------
-// Load a texture with a given filename using stb image loader
-// http://nothings.org/stb_image.h
-// Creates mip maps if generateMipMaps is true.
-//-----------------------------------------------------------------------------
 bool Texture2D::loadTexture(const string& fileName, bool generateMipMaps)
 {
 	int width, height, components;
@@ -99,4 +94,10 @@ void Texture2D::bind(GLuint texUnit)
 
 	glActiveTexture(GL_TEXTURE0 + texUnit);
 	glBindTexture(GL_TEXTURE_2D, mTexture);
+}
+
+void Texture2D::unbind(GLuint texUnit)
+{
+	glActiveTexture(GL_TEXTURE0 + texUnit);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
